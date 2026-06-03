@@ -1,6 +1,5 @@
 package com.example.plantas_medicinales.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -21,14 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.plantas_medicinales.R
 import com.example.plantas_medicinales.model.Planta
 
 @Composable
@@ -179,66 +176,17 @@ fun ManzanillaInfoScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
             ) {
-                InfoSectionTitle(emoji = "🌼", titulo = "Usos Tradicionales")
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = planta.descripcion_uso,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
                 InfoCard(
-                    borderColor = Color(0xFF52B788),
-                    bgColor = Color(0xFF0A1F14),
-                    emoji = "💊",
-                    titulo = "Dosificación Recomendada",
+                    borderColor = Color(0xFF1F2E24),
+                    bgColor = Color(0xFF0D0D0D),
+                    titulo = "Información General",
                     tituloColor = Color(0xFF52B788)
                 ) {
-                    InfoBullet(
-                        icono = "🍵",
-                        texto = "Infusión: 2–3 g de flores secas por taza de agua caliente (90 °C). Reposar tapado 10 minutos. Consumir hasta 3 veces al día."
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    InfoBullet(
-                        icono = "🧪",
-                        texto = "Extracto líquido (1:1 en 45 % alcohol): 1–4 ml tres veces al día. No exceder las dosis indicadas."
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                InfoCard(
-                    borderColor = Color(0xFFB7952A),
-                    bgColor = Color(0xFF1E1800),
-                    emoji = "⚠️",
-                    titulo = "Contraindicaciones",
-                    tituloColor = Color(0xFFD4AC3A)
-                ) {
                     Text(
-                        text = "Evitar en individuos con hipersensibilidad conocida a plantas de la familia Asteraceae/Compositae (ej. ambrosía, crisantemos, margaritas). Aunque generalmente segura durante el embarazo en dosis culinarias, se recomienda precaución y supervisión experta en dosis terapéuticas.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                InfoCard(
-                    borderColor = Color(0xFF8B2020),
-                    bgColor = Color(0xFF1A0A0A),
-                    emoji = "⚕️",
-                    titulo = "Interacciones Farmacológicas",
-                    tituloColor = Color(0xFFD44A4A)
-                ) {
-                    Text(
-                        text = "Debido a sus efectos sedantes, la manzanilla puede potenciar la acción de medicamentos depresores del sistema nervioso central, como las benzodiazepinas y los barbitúricos. También puede interactuar teóricamente con anticoagulantes si se consume en grandes cantidades, debido a la presencia de compuestos cumarínicos.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
+                        text = planta.descripcion_uso,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
                     )
                 }
 

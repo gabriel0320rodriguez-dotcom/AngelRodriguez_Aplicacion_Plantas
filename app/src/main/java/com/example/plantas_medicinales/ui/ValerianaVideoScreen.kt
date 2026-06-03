@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -27,21 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.compose.LocalLifecycleOwner
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-
-data class PuntoClave(
-    val numero: Int,
-    val titulo: String,
-    val descripcion: String
-)
-
-
 
 @Composable
 fun ValerianaVideoScreen(
@@ -55,28 +41,11 @@ fun ValerianaVideoScreen(
     var isFullscreen by remember { mutableStateOf(false) }
     var fullscreenView by remember { mutableStateOf<View?>(null) }
 
+    // ── Video ID Restaurado ───────────────────────────────────
     val youtubeId = "bfFu1I8ePiM"
     val categoria = "Sedante Natural"
     val tituloSeccion = planta.nombre_comun
     val descripcionPrincipal = planta.descripcion_uso
-
-    val puntosClave = listOf(
-        PuntoClave(
-            1,
-            "Sedante Natural",
-            "Actúa directamente sobre el sistema nervioso para calmar la irritabilidad, aliviar dolores de cabeza por tensión y relajar la musculatura de todo el cuerpo."
-        ),
-        PuntoClave(
-            2,
-            "Remedio contra el Insomnio",
-            "Induce un sueño profundo y de alta calidad. Es el remedio indicado para acortar el tiempo que tardas en dormir y evitar interrupciones durante la noche."
-        ),
-        PuntoClave(
-            3,
-            "Preparación y Precauciones",
-            "La mejor forma de aprovecharla es mediante una infusión de su raíz. Para mantener su eficacia, no debe mezclarse con cafeína ni consumirse por más de seis semanas seguidas."
-        )
-    )
 
     Box(
         modifier = Modifier
@@ -93,6 +62,7 @@ fun ValerianaVideoScreen(
                     .fillMaxWidth()
                     .background(Color(0xFF000000))
             ) {
+                // El componente ahora se jala de CommonComponents.kt
                 YouTubePlayerCompose(
                     videoId = youtubeId,
                     modifier = Modifier
@@ -192,18 +162,37 @@ fun ValerianaVideoScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(
-                    text = descripcionPrincipal,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFF0D0D0D), RoundedCornerShape(12.dp))
+                        .border(1.dp, Color(0xFF1F2E24), RoundedCornerShape(12.dp))
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = descripcionPrincipal,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
+                    )
+                }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-                puntosClave.forEach { punto ->
-                    PuntoClaveCard(punto = punto)
-                    Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    onClick = onBack,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A2E22))
+                ) {
+                    Text(
+                        text = "← Volver a la Lista",
+                        color = Color(0xFF52B788),
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
             }
         }
@@ -222,109 +211,4 @@ fun ValerianaVideoScreen(
             )
         }
     }
-}
-
-@Composable
-fun PuntoClaveCard(punto: PuntoClave) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(14.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF0D0D0D)
-        ),
-        border = androidx.compose.foundation.BorderStroke(
-            width = 1.dp,
-            color = Color(0xFF1F2E24)
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.Top
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(36.dp)
-                    .background(
-                        color = Color(0xFF1B4332),
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = punto.numero.toString(),
-                    color = Color(0xFF95D5B2),
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            Spacer(modifier = Modifier.width(14.dp))
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = punto.titulo,
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = punto.descripcion,
-                    color = Color.White.copy(alpha = 0.6f),
-                    fontSize = 13.sp,
-                    lineHeight = 19.sp
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun YouTubePlayerCompose(
-    videoId: String,
-    modifier: Modifier = Modifier,
-    onEnterFullscreen: (View) -> Unit = {},
-    onExitFullscreen: () -> Unit = {}
-) {
-    val lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
-
-    AndroidView(
-        modifier = modifier,
-        factory = { ctx ->
-            // Aquí está la corrección: pasamos 'ctx' al Builder
-            val iFramePlayerOptions = IFramePlayerOptions.Builder(ctx)
-                .controls(1)
-                .fullscreen(1)
-                .build()
-
-            YouTubePlayerView(ctx).apply {
-                enableAutomaticInitialization = false
-                lifecycleOwner.lifecycle.addObserver(this)
-
-                addFullscreenListener(object : FullscreenListener {
-                    override fun onEnterFullscreen(
-                        fullscreenView: View,
-                        exitFullscreen: () -> Unit
-                    ) {
-                        onEnterFullscreen(fullscreenView)
-                    }
-
-                    override fun onExitFullscreen() {
-                        onExitFullscreen()
-                    }
-                })
-
-                initialize(
-                    object : AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            youTubePlayer.cueVideo(videoId, 0f)
-                        }
-                    },
-                    iFramePlayerOptions
-                )
-            }
-        }
-    )
 }

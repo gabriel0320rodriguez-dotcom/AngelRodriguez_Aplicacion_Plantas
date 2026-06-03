@@ -294,7 +294,9 @@ fun VideoCard(
                     text = planta.descripcion_uso,
                     color = Color.White.copy(alpha = 0.55f),
                     fontSize = 13.sp,
-                    lineHeight = 19.sp
+                    lineHeight = 19.sp,
+                    maxLines = 2,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }
         }

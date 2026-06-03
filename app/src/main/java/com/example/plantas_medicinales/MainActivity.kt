@@ -1,11 +1,16 @@
 package com.example.plantas_medicinales
 
+import coil.Coil
+import coil.ImageLoader
+import okhttp3.OkHttpClient
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.plantas_medicinales.model.Planta
 import com.example.plantas_medicinales.ui.ChayaInfoScreen
@@ -24,9 +29,25 @@ import com.example.plantas_medicinales.viewmodel.PlantasViewModel
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // ─── INICIO DEL "GAFETE" PARA WIKIMEDIA ───
+        val imageLoader = ImageLoader.Builder(this)
+            .okHttpClient {
+                OkHttpClient.Builder()
+                    .addNetworkInterceptor { chain ->
+                        // Aquí nos identificamos como la app "Raíz Verde"
+                        val request = chain.request().newBuilder()
+                            .header("User-Agent", "RaizVerdeApp/1.0 (Proyecto Universitario)")
+                            .build()
+                        chain.proceed(request)
+                    }
+                    .build()
+            }
+            .build()
+        Coil.setImageLoader(imageLoader)
         setContent {
             MaterialTheme {
-                Surface {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     val plantasViewModel: PlantasViewModel = viewModel()
                     val plantas by plantasViewModel.plantas.collectAsState()
                     val isLoading by plantasViewModel.isLoading.collectAsState()

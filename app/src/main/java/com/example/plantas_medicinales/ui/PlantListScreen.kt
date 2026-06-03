@@ -1,5 +1,6 @@
 package com.example.plantas_medicinales.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -173,6 +174,7 @@ fun PlantCard(
                     )
                     .padding(3.dp)
             ) {
+                Log.d("DEBUG_COIL", "URL recibida para ${planta.nombre_comun}: '${planta.imagen_url}'")
                 AsyncImage(
                     model = planta.imagen_url,
                     contentDescription = planta.nombre_comun,
@@ -212,7 +214,9 @@ fun PlantCard(
                     text = planta.descripcion_uso,
                     color = Color.White.copy(alpha = 0.55f),
                     fontSize = 13.sp,
-                    lineHeight = 19.sp
+                    lineHeight = 19.sp,
+                    maxLines = 2,
+                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
                 )
             }
 

@@ -1,14 +1,8 @@
 package com.example.plantas_medicinales.ui
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocalFlorist
@@ -17,10 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -141,63 +133,5 @@ fun HomeScreen(
                 )
             }
         }
-    }
-}
-
-@Composable
-fun NavItem(
-    icon: ImageVector,
-    label: String,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
-    val iconColor by animateColorAsState(
-        targetValue = if (selected) Color(0xFF52B788) else Color(0xFF4A6358),
-        animationSpec = tween(durationMillis = 300),
-        label = "iconColor"
-    )
-
-    val scale by animateFloatAsState(
-        targetValue = if (selected) 1.15f else 1f,
-        animationSpec = tween(durationMillis = 200),
-        label = "scale"
-    )
-
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = onClick
-            )
-            .padding(horizontal = 20.dp, vertical = 8.dp)
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .scale(scale)
-                .then(
-                    if (selected) Modifier.background(
-                        color = Color(0xFF1B4332),
-                        shape = RoundedCornerShape(12.dp)
-                    ).padding(horizontal = 16.dp, vertical = 4.dp)
-                    else Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
-                )
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = label,
-                tint = iconColor,
-                modifier = Modifier.size(26.dp)
-            )
-        }
-        Spacer(modifier = Modifier.height(3.dp))
-        Text(
-            text = label,
-            color = iconColor,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold
-        )
     }
 }

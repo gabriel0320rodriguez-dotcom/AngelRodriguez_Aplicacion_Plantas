@@ -1,6 +1,5 @@
 package com.example.plantas_medicinales.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -21,14 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.plantas_medicinales.R
 import com.example.plantas_medicinales.model.Planta
 
 @Composable
@@ -179,66 +176,17 @@ fun ChayaInfoScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
             ) {
-                InfoSectionTitle(emoji = "🌿", titulo = "Usos Tradicionales")
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = planta.descripcion_uso,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
                 InfoCard(
-                    borderColor = Color(0xFF52B788),
-                    bgColor = Color(0xFF0A1F14),
-                    emoji = "💊",
-                    titulo = "Dosificación Recomendada",
+                    borderColor = Color(0xFF1F2E24),
+                    bgColor = Color(0xFF0D0D0D),
+                    titulo = "Información General",
                     tituloColor = Color(0xFF52B788)
                 ) {
-                    InfoBullet(
-                        icono = "🍵",
-                        texto = "Té de hojas: hervir 5–6 hojas frescas en 1 litro de agua durante mínimo 5 minutos. Consumir 1–2 tazas al día. Nunca preparar en crudo."
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    InfoBullet(
-                        icono = "🥗",
-                        texto = "Hojas cocidas: cocinar al vapor o hervidas mínimo 5 minutos antes de consumir. Pueden usarse como sustituto de la espinaca en cualquier receta."
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                InfoCard(
-                    borderColor = Color(0xFFB7952A),
-                    bgColor = Color(0xFF1E1800),
-                    emoji = "⚠️",
-                    titulo = "Contraindicaciones",
-                    tituloColor = Color(0xFFD4AC3A)
-                ) {
                     Text(
-                        text = "NUNCA consumir cruda: contiene glucósidos cianogénicos que pueden ser tóxicos. Siempre cocinar al menos 5 minutos antes de su consumo. Se recomienda evitar su uso durante el embarazo sin supervisión médica. Las personas con hipotiroidismo deben consultar a su médico antes de incluirla en su dieta de forma regular.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                InfoCard(
-                    borderColor = Color(0xFF8B2020),
-                    bgColor = Color(0xFF1A0A0A),
-                    emoji = "⚕️",
-                    titulo = "Interacciones Farmacológicas",
-                    tituloColor = Color(0xFFD44A4A)
-                ) {
-                    Text(
-                        text = "Puede potenciar el efecto de medicamentos hipoglucemiantes orales e insulina, aumentando el riesgo de hipoglucemia en personas diabéticas bajo tratamiento. Se recomienda monitorear los niveles de glucosa con mayor frecuencia al iniciar su consumo regular. Consultar al médico si se toman medicamentos para la tiroides.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
+                        text = planta.descripcion_uso,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
                     )
                 }
 

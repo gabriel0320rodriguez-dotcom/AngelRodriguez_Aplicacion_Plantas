@@ -6,11 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.plantas_medicinales"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.plantas_medicinales"
@@ -58,7 +54,7 @@ dependencies {
     // Supabase & Ktor
     implementation(platform("io.github.jan-tennert.supabase:bom:3.0.2"))
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
-    implementation("io.ktor:ktor-client-android:3.0.1")
+    implementation("io.ktor:ktor-client-android:3.0.2")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

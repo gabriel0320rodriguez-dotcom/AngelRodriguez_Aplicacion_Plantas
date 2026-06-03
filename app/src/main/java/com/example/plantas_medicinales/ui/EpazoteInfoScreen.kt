@@ -1,6 +1,5 @@
 package com.example.plantas_medicinales.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -21,14 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.plantas_medicinales.R
 import com.example.plantas_medicinales.model.Planta
 
 @Composable
@@ -179,66 +176,17 @@ fun EpazoteInfoScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
             ) {
-                InfoSectionTitle(emoji = "🌱", titulo = "Usos Tradicionales")
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = planta.descripcion_uso,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
                 InfoCard(
-                    borderColor = Color(0xFF52B788),
-                    bgColor = Color(0xFF0A1F14),
-                    emoji = "💊",
-                    titulo = "Dosificación Recomendada",
+                    borderColor = Color(0xFF1F2E24),
+                    bgColor = Color(0xFF0D0D0D),
+                    titulo = "Información General",
                     tituloColor = Color(0xFF52B788)
                 ) {
-                    InfoBullet(
-                        icono = "🍵",
-                        texto = "Infusión digestiva: 5–10 g de hojas frescas (o 2–3 g secas) en 250 ml de agua hirviendo. Reposar 8 minutos. Tomar 1–2 veces al día después de las comidas."
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    InfoBullet(
-                        icono = "🌿",
-                        texto = "Uso culinario: añadir un manojo pequeño de hojas frescas al cocinar frijoles u otros legumbres. Retira las hojas antes de servir si se prefiere."
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                InfoCard(
-                    borderColor = Color(0xFFB7952A),
-                    bgColor = Color(0xFF1E1800),
-                    emoji = "⚠️",
-                    titulo = "Contraindicaciones",
-                    tituloColor = Color(0xFFD4AC3A)
-                ) {
                     Text(
-                        text = "Contraindicado durante el embarazo: en dosis altas posee propiedades emenagogo y abortivas comprobadas. Evitar en lactancia. No administrar a niños menores de 2 años. No usar de forma prolongada sin supervisión médica, ya que el ascaridol (su principio activo) puede ser tóxico en altas concentraciones.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                InfoCard(
-                    borderColor = Color(0xFF8B2020),
-                    bgColor = Color(0xFF1A0A0A),
-                    emoji = "⚕️",
-                    titulo = "Interacciones Farmacológicas",
-                    tituloColor = Color(0xFFD44A4A)
-                ) {
-                    Text(
-                        text = "Puede potenciar el efecto de medicamentos antiparasitarios, aumentando el riesgo de efectos secundarios. Se han reportado posibles interacciones con fármacos antiepilépticos. No combinar con otros hepatotóxicos. Su aceite esencial concentrado puede ser neurotóxico; usar siempre la planta en forma de infusión o en cocina.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
+                        text = planta.descripcion_uso,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
                     )
                 }
 

@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -26,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.plantas_medicinales.model.Planta
 
 @Composable
@@ -41,28 +41,11 @@ fun ChayaVideoScreen(
     var isFullscreen by remember { mutableStateOf(false) }
     var fullscreenView by remember { mutableStateOf<View?>(null) }
 
+    // ── Video ID Restaurado ───────────────────────────────────
     val youtubeId = "UZDKgJWRwNY"
     val categoria = "Nutrición"
     val tituloSeccion = planta.nombre_comun
     val descripcionPrincipal = planta.descripcion_uso
-
-    val puntosClave = listOf(
-        PuntoClave(
-            1,
-            "Superalimento Ancestral",
-            "Sus hojas concentran una cantidad extraordinaria de proteínas, calcio, hierro, vitamina C y betacaroteno. Fortalece los huesos, mejora la circulación sanguínea y potencia el sistema inmunológico de forma natural."
-        ),
-        PuntoClave(
-            2,
-            "Regulador del Azúcar y Colesterol",
-            "Actúa como un aliado clave para controlar los niveles de glucosa en sangre, siendo especialmente beneficiosa para personas con diabetes tipo 2. También reduce el colesterol malo y contribuye a la salud cardiovascular."
-        ),
-        PuntoClave(
-            3,
-            "Preparación Segura — Importante",
-            "La chaya cruda contiene glucósidos cianogénicos que pueden ser dañinos. Siempre debe cocinarse al menos 5 minutos antes de consumirla. Una vez cocida es completamente segura, deliciosa y aprovecha al máximo todos sus nutrientes."
-        )
-    )
 
     Box(
         modifier = Modifier
@@ -79,6 +62,7 @@ fun ChayaVideoScreen(
                     .fillMaxWidth()
                     .background(Color(0xFF000000))
             ) {
+                // El componente ahora se jala de CommonComponents.kt
                 YouTubePlayerCompose(
                     videoId = youtubeId,
                     modifier = Modifier
@@ -178,18 +162,37 @@ fun ChayaVideoScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(
-                    text = descripcionPrincipal,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFF0D0D0D), RoundedCornerShape(12.dp))
+                        .border(1.dp, Color(0xFF1F2E24), RoundedCornerShape(12.dp))
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = descripcionPrincipal,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
+                    )
+                }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-                puntosClave.forEach { punto ->
-                    PuntoClaveCard(punto = punto)
-                    Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    onClick = onBack,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A2E22))
+                ) {
+                    Text(
+                        text = "← Volver a la Lista",
+                        color = Color(0xFF52B788),
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
             }
         }

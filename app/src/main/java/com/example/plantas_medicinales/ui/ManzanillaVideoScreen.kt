@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -26,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
-import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.plantas_medicinales.model.Planta
 
 @Composable
@@ -41,28 +41,11 @@ fun ManzanillaVideoScreen(
     var isFullscreen by remember { mutableStateOf(false) }
     var fullscreenView by remember { mutableStateOf<View?>(null) }
 
+    // ── Video ID Restaurado ───────────────────────────────────
     val youtubeId = "t0jtQ-HU7rc"
     val categoria = "Digestivo"
     val tituloSeccion = planta.nombre_comun
     val descripcionPrincipal = planta.descripcion_uso
-
-    val puntosClave = listOf(
-        PuntoClave(
-            1,
-            "Alivio Digestivo y Menstrual",
-            "Es un remedio altamente efectivo para tratar digestiones pesadas y reducir la inflamación intestinal. Sus propiedades antiespasmódicas también alivian los dolores y cólicos menstruales de forma segura."
-        ),
-        PuntoClave(
-            2,
-            "Relajante y Sedante Natural",
-            "Las infusiones de manzanilla ayudan a mantener el cuerpo en calma, siendo muy indicadas para reducir el estrés y la ansiedad. Tomada antes de dormir, combate el insomnio y mejora la calidad del sueño."
-        ),
-        PuntoClave(
-            3,
-            "Cuidado Tópico de Piel y Ojos",
-            "Aplicada de forma externa, funciona como antibacterial protegiendo la piel de irritaciones. Es ideal para reducir la hinchazón ocular, refrescar la mirada y tratar afecciones como la conjuntivitis."
-        )
-    )
 
     Box(
         modifier = Modifier
@@ -79,6 +62,7 @@ fun ManzanillaVideoScreen(
                     .fillMaxWidth()
                     .background(Color(0xFF000000))
             ) {
+                // El componente ahora se jala de CommonComponents.kt
                 YouTubePlayerCompose(
                     videoId = youtubeId,
                     modifier = Modifier
@@ -139,7 +123,6 @@ fun ManzanillaVideoScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
                     .padding(top = 24.dp, bottom = 40.dp)
-                    .navigationBarsPadding()
             ) {
                 Row(
                     modifier = Modifier
@@ -179,18 +162,37 @@ fun ManzanillaVideoScreen(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text(
-                    text = descripcionPrincipal,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFF0D0D0D), RoundedCornerShape(12.dp))
+                        .border(1.dp, Color(0xFF1F2E24), RoundedCornerShape(12.dp))
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = descripcionPrincipal,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
+                    )
+                }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-                puntosClave.forEach { punto ->
-                    PuntoClaveCard(punto = punto)
-                    Spacer(modifier = Modifier.height(12.dp))
+                Button(
+                    onClick = onBackClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A2E22))
+                ) {
+                    Text(
+                        text = "← Volver a la Lista",
+                        color = Color(0xFF52B788),
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
                 }
             }
         }

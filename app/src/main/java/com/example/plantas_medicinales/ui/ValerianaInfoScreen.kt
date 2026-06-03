@@ -1,6 +1,5 @@
 package com.example.plantas_medicinales.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -14,7 +13,6 @@ import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocalFlorist
 import androidx.compose.material.icons.filled.PlayCircle
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,14 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.plantas_medicinales.R
 import com.example.plantas_medicinales.model.Planta
 
 @Composable
@@ -83,7 +79,7 @@ fun ValerianaInfoScreen(
                 .verticalScroll(verticalScroll)
         ) {
 
-            // ── Hero: imagen + gradiente + título ──────────────
+            // ── Hero ────────────────────────────────────────────
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -196,86 +192,29 @@ fun ValerianaInfoScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
             ) {
-
-                // Usos Tradicionales
-                InfoSectionTitle(emoji = "🌿", titulo = "Usos Tradicionales")
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = planta.descripcion_uso,
-                    color = Color.White.copy(alpha = 0.75f),
-                    fontSize = 14.sp,
-                    lineHeight = 22.sp
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Dosificación
                 InfoCard(
-                    borderColor = Color(0xFF52B788),
-                    bgColor = Color(0xFF0A1F14),
-                    emoji = "💊",
-                    titulo = "Dosificación Recomendada",
+                    borderColor = Color(0xFF1F2E24),
+                    bgColor = Color(0xFF0D0D0D),
+                    titulo = "Información General",
                     tituloColor = Color(0xFF52B788)
                 ) {
-                    InfoBullet(
-                        icono = "🍵",
-                        texto = "Infusión: 2–3 g de raíz seca en agua caliente (90 °C). Reposar tapado 10 minutos. Tomar 30 min antes de dormir, hasta 2 veces al día."
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    InfoBullet(
-                        icono = "🧪",
-                        texto = "Extracto estandarizado: 300–600 mg, entre 30 y 60 minutos antes de acostarse. No exceder las 6 semanas de uso continuo."
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Contraindicaciones
-                InfoCard(
-                    borderColor = Color(0xFFB7952A),
-                    bgColor = Color(0xFF1E1800),
-                    emoji = "⚠️",
-                    titulo = "Contraindicaciones",
-                    tituloColor = Color(0xFFD4AC3A)
-                ) {
                     Text(
-                        text = "No se recomienda durante el embarazo ni la lactancia. Evitar en niños menores de 3 años sin supervisión médica. No usar por más de 6 semanas seguidas sin descanso. Abstenerse de conducir o manejar maquinaria pesada tras su consumo.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Interacciones
-                InfoCard(
-                    borderColor = Color(0xFF8B2020),
-                    bgColor = Color(0xFF1A0A0A),
-                    emoji = "⚕️",
-                    titulo = "Interacciones Farmacológicas",
-                    tituloColor = Color(0xFFD44A4A)
-                ) {
-                    Text(
-                        text = "Puede potenciar el efecto de sedantes, benzodiacepinas y barbitúricos, aumentando el riesgo de somnolencia excesiva. Puede interactuar con anticoagulantes orales. Se debe evitar su combinación con alcohol, ya que amplifica los efectos depresores del sistema nervioso central.",
-                        color = Color.White.copy(alpha = 0.75f),
-                        fontSize = 13.sp,
-                        lineHeight = 20.sp
+                        text = planta.descripcion_uso,
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 14.sp,
+                        lineHeight = 22.sp
                     )
                 }
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                // Botón regresar al catálogo
                 Button(
                     onClick = onBack,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp),
                     shape = RoundedCornerShape(25.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF1A2E22)
-                    )
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A2E22))
                 ) {
                     Text(
                         text = "← Regresar al Catálogo",
@@ -288,80 +227,5 @@ fun ValerianaInfoScreen(
                 Spacer(modifier = Modifier.height(24.dp))
             }
         }
-    }
-}
-
-// ── Composables de apoyo ──────────────────────────────────────
-
-@Composable
-fun InfoSectionTitle(emoji: String, titulo: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(text = emoji, fontSize = 20.sp)
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = titulo,
-            color = Color.White,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Serif
-        )
-    }
-}
-
-@Composable
-fun InfoCard(
-    borderColor: Color,
-    bgColor: Color,
-    emoji: String,
-    titulo: String,
-    tituloColor: Color,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(bgColor, RoundedCornerShape(14.dp))
-    ) {
-        // Borde izquierdo de color
-        Box(
-            modifier = Modifier
-                .width(4.dp)
-                .fillMaxHeight()
-                .background(borderColor, RoundedCornerShape(topStart = 14.dp, bottomStart = 14.dp))
-        )
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(16.dp)
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = emoji, fontSize = 18.sp)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = titulo,
-                    color = tituloColor,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.Serif
-                )
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            content()
-        }
-    }
-}
-
-@Composable
-fun InfoBullet(icono: String, texto: String) {
-    Row(verticalAlignment = Alignment.Top) {
-        Text(text = icono, fontSize = 14.sp)
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(
-            text = texto,
-            color = Color.White.copy(alpha = 0.75f),
-            fontSize = 13.sp,
-            lineHeight = 20.sp,
-            modifier = Modifier.weight(1f)
-        )
     }
 }
